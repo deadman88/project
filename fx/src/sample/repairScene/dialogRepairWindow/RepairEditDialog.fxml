@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="214.0" prefWidth="314.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.repairScene.dialogRepairWindow.RepairEditDialogController">
+   <children>
+      <GridPane layoutX="8.0" prefHeight="159.0" prefWidth="334.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="167.0" minWidth="10.0" prefWidth="167.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="132.0" minWidth="10.0" prefWidth="111.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Label text="Вид ремонту">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label text="Вартість" GridPane.rowIndex="1">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label text="Час" GridPane.rowIndex="2">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <TextField fx:id="nameOfRepairField" GridPane.columnIndex="1" />
+            <TextField fx:id="costOfRepairField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="timeOfRepairField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+         </children>
+      </GridPane>
+      <Button layoutX="121.0" layoutY="159.0" mnemonicParsing="false" onAction="#handleOk" text="Готово">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Button>
+      <Button layoutX="257.0" layoutY="188.0" mnemonicParsing="false" onAction="#handleCancel" text="Відміна" />
+   </children>
+</AnchorPane>

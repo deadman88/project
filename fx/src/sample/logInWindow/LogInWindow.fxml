@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="279.0" prefWidth="496.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ImageView fitHeight="283.0" fitWidth="589.0" layoutX="-4.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../3b974acce0399a541d294f7a085869b6.jpg" />
+         </image>
+      </ImageView>
+      <PasswordField layoutX="173.0" layoutY="193.0" promptText="Password:" />
+      <TextField layoutX="170.0" layoutY="139.0" promptText="Name:" />
+      <Label layoutX="37.0" layoutY="14.0" text="Діамант group" textFill="#901717">
+         <font>
+            <Font name="Vrinda" size="67.0" />
+         </font>
+      </Label>
+      <Label layoutX="232.0" layoutY="122.0" text="Ім'я:" textFill="#c52525">
+         <font>
+            <Font size="15.0" />
+         </font></Label>
+      <Label layoutX="219.0" layoutY="172.0" text="Пароль:" textFill="#c52525">
+         <font>
+            <Font size="15.0" />
+         </font></Label>
+      <Button layoutX="251.0" layoutY="227.0" mnemonicParsing="false" text="Готово">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Button>
+   </children>
+</Pane>

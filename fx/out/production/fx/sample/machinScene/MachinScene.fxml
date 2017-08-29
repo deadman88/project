@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="718.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.machinScene.MachinSceneController">
+   <children>
+      <MenuBar layoutY="1.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <menus>
+            <Menu mnemonicParsing="false" text="Файл">
+               <items>
+                  <MenuItem mnemonicParsing="false" text="Зберегти" />
+                  <MenuItem mnemonicParsing="false" text="Обновити" />
+                  <Menu mnemonicParsing="false" text="Видалити">
+                     <items>
+                        <MenuItem mnemonicParsing="false" text="Робота" />
+                        <MenuItem mnemonicParsing="false" text="Працівник" />
+                        <MenuItem mnemonicParsing="false" onAction="#handleDeleteMachin" text="Техніка" />
+                        <MenuItem mnemonicParsing="false" text="Ремонт" />
+                     </items>
+                  </Menu>
+               </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Додати">
+               <items>
+                  <MenuItem mnemonicParsing="false" text="Робота" />
+                  <MenuItem mnemonicParsing="false" text="Працівник" />
+                  <MenuItem mnemonicParsing="false" onAction="#handleNewMachin" text="Техніка" />
+                  <MenuItem mnemonicParsing="false" text="Ремонт" />
+               </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Перегляд">
+               <items>
+                  <MenuItem mnemonicParsing="false" onAction="#goToJobScene" text="Робота" />
+                  <MenuItem mnemonicParsing="false" onAction="#goToEmployeeScene" text="Працівники" />
+                  <MenuItem mnemonicParsing="false" text="Техніка" />
+                  <MenuItem mnemonicParsing="false" onAction="#goToRepairScene" text="Ремонт" />
+               </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Правка">
+               <items>
+                  <MenuItem mnemonicParsing="false" text="Робота" />
+                  <MenuItem mnemonicParsing="false" text="Працівник" />
+                  <MenuItem mnemonicParsing="false" onAction="#handleEditMachin" text="Техніка" />
+                  <MenuItem mnemonicParsing="false" text="Ремонт" />
+               </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Допомога">
+               <items>
+                  <MenuItem mnemonicParsing="false" text="Допомога" />
+                  <MenuItem mnemonicParsing="false" text="FAQ" />
+               </items>
+            </Menu>
+         </menus>
+         <padding>
+            <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
+         </padding>
+      </MenuBar>
+      <TableView fx:id="machinTable" layoutX="16.0" layoutY="42.0" prefHeight="359.0" prefWidth="601.0" AnchorPane.bottomAnchor="3.0" AnchorPane.leftAnchor="3.0" AnchorPane.rightAnchor="3.0" AnchorPane.topAnchor="32.0">
+         <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy>
+         <columns>
+            <TableColumn fx:id="firstNameOfMachinColumn" prefWidth="75.0" text="Марка" />
+            <TableColumn fx:id="secondNameOfMachinColumn" prefWidth="75.0" text="Модель" />
+            <TableColumn fx:id="licensePlateColumn" prefWidth="75.0" text="Паспорт" />
+            <TableColumn fx:id="yearColumn" prefWidth="75.0" text="Рік виготовлення" />
+         </columns>
+         <padding>
+            <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
+         </padding>
+      </TableView>
+   </children>
+</AnchorPane>
