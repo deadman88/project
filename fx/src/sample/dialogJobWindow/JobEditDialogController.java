@@ -82,7 +82,7 @@ public class JobEditDialogController {
     }
 
     private boolean isInputValid() {
-        String errorMessage = "Помилка";
+        String errorMessage = "";
         if (nameOfMachinField.getText() == null || nameOfMachinField.getText().length() ==
                 0) {
             errorMessage += "Не введена назва техніки!\n";

@@ -58,7 +58,7 @@ public class RepairEditDialogController {
     }
 
     private boolean isInputValid() {
-        String errorMessage = "Помилка";
+        String errorMessage = "";
         if (nameOfRepairField.getText() == null || nameOfRepairField.getText().length() ==
                 0) {
             errorMessage += "Не введено вид ремонту!\n";

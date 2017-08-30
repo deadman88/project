@@ -67,7 +67,7 @@ public class EmployeeEditDialogController {
     }
 
     private boolean isInputValid() {
-        String errorMessage = "Помилка";
+        String errorMessage = "";
         if (firstNameOfEmployeeField.getText() == null || firstNameOfEmployeeField.getText().length() ==
                 0) {
             errorMessage += "Не введено ім'я!\n";

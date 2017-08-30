@@ -28,22 +28,10 @@
                <items>
                   <MenuItem mnemonicParsing="false" text="Зберегти" />
                   <MenuItem mnemonicParsing="false" text="Обновити" />
-                  <Menu mnemonicParsing="false" text="Видалити">
-                     <items>
-                        <MenuItem mnemonicParsing="false" onAction="#handleDeleteJob" text="Робота" />
-                        <MenuItem mnemonicParsing="false" text="Працівник" />
-                        <MenuItem mnemonicParsing="false" text="Техніка" />
-                        <MenuItem mnemonicParsing="false" text="Ремонт" />
-                     </items>
-                  </Menu>
-               </items>
-            </Menu>
-            <Menu mnemonicParsing="false" text="Додати">
-               <items>
-                  <MenuItem mnemonicParsing="false" onAction="#handleNewjob" text="Робота" />
-                  <MenuItem mnemonicParsing="false" text="Працівник" />
-                  <MenuItem mnemonicParsing="false" text="Техніка" />
-                  <MenuItem mnemonicParsing="false" text="Ремонт" />
+                  <MenuItem mnemonicParsing="false" onAction="#handleNewjob" text="Додати" />
+                  <MenuItem mnemonicParsing="false" onAction="#handleEditJob" text="Редагувати" />
+                  <MenuItem mnemonicParsing="false" onAction="#handleDeleteJob" text="Видалити" />
+                  <MenuItem mnemonicParsing="false" text="Вийти" />
                </items>
             </Menu>
             <Menu mnemonicParsing="false" text="Перегляд">
@@ -51,16 +39,8 @@
                 <MenuItem mnemonicParsing="false" text="Робота" />
                   <MenuItem mnemonicParsing="false" onAction="#goToEmployeeScene" text="Працівники" />
                   <MenuItem mnemonicParsing="false" onAction="#goToMachinScene" text="Техніка" />
-                  <MenuItem mnemonicParsing="false" text="Ремонт" />
+                  <MenuItem mnemonicParsing="false" onAction="#goToRepairScene" text="Ремонт" />
               </items>
-            </Menu>
-            <Menu mnemonicParsing="false" text="Правка">
-               <items>
-                  <MenuItem mnemonicParsing="false" onAction="#handleEditJob" text="Робота" />
-                  <MenuItem mnemonicParsing="false" text="Працівник" />
-                  <MenuItem mnemonicParsing="false" text="Техніка" />
-                  <MenuItem mnemonicParsing="false" text="Ремонт" />
-               </items>
             </Menu>
             <Menu mnemonicParsing="false" text="Допомога">
                <items>

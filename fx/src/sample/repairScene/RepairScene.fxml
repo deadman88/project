@@ -74,15 +74,6 @@
          </font>
       </Label>
       <DatePicker prefHeight="25.0" prefWidth="105.0" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="32.0" />
-      <ChoiceBox prefHeight="25.0" prefWidth="105.0" value="Вид" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="256.0">
-         <items>
-            <FXCollections fx:factory="observableArrayList">
-               <String fx:value="Прибуток" />
-               <String fx:value="Витрати" />
-               <String fx:value="Зарплати" />
-               <String fx:value="Чистий прибуток" />
-            </FXCollections>
-         </items>
-      </ChoiceBox>
+      <ComboBox layoutX="561.0" layoutY="223.0" prefHeight="25.0" prefWidth="105.0" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="256.0" />
    </children>
 </AnchorPane>

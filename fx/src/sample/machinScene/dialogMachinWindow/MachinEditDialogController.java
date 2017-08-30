@@ -63,7 +63,7 @@ public class MachinEditDialogController {
     }
 
     private boolean isInputValid() {
-        String errorMessage = "Помилка";
+        String errorMessage = "";
         if (firstNameOfMachinField.getText() == null || firstNameOfMachinField.getText().length() ==
                 0) {
             errorMessage += "Не введена марка техніки!\n";
