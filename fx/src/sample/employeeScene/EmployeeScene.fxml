@@ -75,7 +75,7 @@
             <Font name="System Bold Italic" size="16.0" />
          </font>
       </Label>
-      <DatePicker prefHeight="25.0" prefWidth="105.0" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="32.0" />
+      <DatePicker fx:id="datePicker" onAction="#handleOnFromDate" prefHeight="25.0" prefWidth="105.0" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="32.0" />
       <ChoiceBox prefHeight="25.0" prefWidth="105.0" value="Вид" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="256.0">
          <items>
             <FXCollections fx:factory="observableArrayList">

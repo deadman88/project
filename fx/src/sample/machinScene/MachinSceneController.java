@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -17,15 +18,29 @@ import sample.Main;
 import sample.employeeScene.EmployeeScene;
 import sample.machinScene.dialogMachinWindow.Machin;
 import sample.machinScene.dialogMachinWindow.MachinEditDialogController;
+import sample.machinScene.machinDB.MachinDB;
 import sample.repairScene.RepairScene;
 
 import java.io.IOException;
+import java.time.LocalDate;
 
 /**
  * Created by Макс on 29.08.2017.
  */
 public class MachinSceneController {
     private final ObservableList<Machin> machinData = FXCollections.observableArrayList();
+    private LocalDate localDate;
+    private Machin machin;
+    MachinDB repository;
+
+    public MachinSceneController(){ repository = new MachinDB();}
+
+    public Machin getMachin(){return machin;}
+
+    public void setMachin(Machin machin){
+        this.machin = machin;
+        machinTable.setItems(repository.getMachinRepositoryList());
+    }
 
 
     @FXML
@@ -38,12 +53,26 @@ public class MachinSceneController {
     private TableColumn<Machin, String> licensePlateColumn;
     @FXML
     private TableColumn<Machin, String> yearColumn;
+    @FXML
+    private DatePicker datePicker;
+
+
+
+    @FXML
+    public void handleOnFromDate() {
+        this.localDate = datePicker.getValue();
+        System.out.println(this.localDate);
+    }
 
     @FXML
     private void handleDeleteMachin() {
         int selectedIndex = machinTable.getSelectionModel().getSelectedIndex();
         if (selectedIndex >= 0) {
             machinTable.getItems().remove(selectedIndex);
+            Machin machin = machinTable.getSelectionModel().getSelectedItem();
+            String firstNameOfMachinColumn = machin.getFirstNameOfMachin();
+            String secondNameOfMachinColumn = machin.getSecondNameOfMachin();
+            repository.remove(firstNameOfMachinColumn, secondNameOfMachinColumn);
         } else {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.initOwner(null);
@@ -80,6 +109,7 @@ public class MachinSceneController {
         boolean okClicked = showMachinEditDialog(tempMachin);
         if (okClicked) {
             machinData.add(tempMachin);
+            repository.insertIntoDB(tempMachin);
         }
     }
 
@@ -92,6 +122,11 @@ public class MachinSceneController {
                 int selectedIndex =
                         machinTable.getSelectionModel().getSelectedIndex();
                 machinData.set(selectedIndex, selectedMachin);
+                repository.updateIntoDB(
+                        selectedMachin.getFirstNameOfMachin(),
+                        selectedMachin.getSecondNameOfMachin(),
+                        selectedMachin.getLicensePlate(),
+                        selectedMachin.getYear());
             }
         } else {
             Alert alert = new Alert(Alert.AlertType.WARNING);

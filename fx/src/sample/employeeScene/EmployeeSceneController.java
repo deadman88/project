@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -16,16 +17,28 @@ import javafx.stage.Stage;
 import sample.Main;
 import sample.employeeScene.dialogEmployeeWindow.Employee;
 import sample.employeeScene.dialogEmployeeWindow.EmployeeEditDialogController;
+import sample.employeeScene.employeeDB.EmployeeDB;
 import sample.machinScene.MachinScene;
 import sample.repairScene.RepairScene;
 
 import java.io.IOException;
+import java.time.LocalDate;
 
 /**
  * Created by Макс on 29.08.2017.
  */
 public class EmployeeSceneController {
     private final ObservableList<Employee> employeeData = FXCollections.observableArrayList();
+    private LocalDate localDate;
+    private Employee employee;
+    EmployeeDB repository;
+
+    public Employee getEmployee(){return employee;}
+
+    public void setRepair(Employee employee){
+        this.employee = employee;
+        employeeTable.setItems(repository.getEmployeeRepositoryList());
+    }
 
 
     @FXML
@@ -40,12 +53,26 @@ public class EmployeeSceneController {
     private TableColumn<Employee, String> passportColumn;
     @FXML
     private TableColumn<Employee, Long> idNumberColumn;
+    @FXML
+    private DatePicker datePicker;
+
+    public EmployeeSceneController(){repository = new EmployeeDB();}
+
+    @FXML
+    public void handleOnFromDate() {
+        this.localDate = datePicker.getValue();
+        System.out.println(this.localDate);
+    }
 
     @FXML
     private void handleDeleteEmployee() {
         int selectedIndex = employeeTable.getSelectionModel().getSelectedIndex();
         if (selectedIndex >= 0) {
             employeeTable.getItems().remove(selectedIndex);
+            Employee employee = employeeTable.getSelectionModel().getSelectedItem();
+            String firstNameOfEmployee = employee.getFirstNameOfEmployee();
+            String secondNameOfEmployee = employee.getSecondNameOfEmployee();
+            repository.remove(firstNameOfEmployee, secondNameOfEmployee);
         } else {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.initOwner(null);
@@ -83,6 +110,7 @@ public class EmployeeSceneController {
         boolean okClicked = showEmployeeEditDialog(tempEmployee);
         if (okClicked) {
             employeeData.add(tempEmployee);
+            repository.insertIntoDB(tempEmployee);
         }
     }
 
@@ -95,6 +123,12 @@ public class EmployeeSceneController {
                 int selectedIndex =
                         employeeTable.getSelectionModel().getSelectedIndex();
                 employeeData.set(selectedIndex, selectedEmployee);
+                repository.updateIntoDB(
+                        selectedEmployee.getFirstNameOfEmployee(),
+                        selectedEmployee.getSecondNameOfEmployee(),
+                        selectedEmployee.getDateOfBirthday(),
+                        selectedEmployee.getPassport(),
+                        selectedEmployee.getIdNumber());
             }
         } else {
             Alert alert = new Alert(Alert.AlertType.WARNING);

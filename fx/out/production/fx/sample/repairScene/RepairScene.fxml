@@ -6,6 +6,7 @@
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.control.cell.ComboBoxListCell?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="718.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.repairScene.RepairSceneController">
    <children>
@@ -73,7 +74,16 @@
             <Font name="System Bold Italic" size="16.0" />
          </font>
       </Label>
-      <DatePicker prefHeight="25.0" prefWidth="105.0" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="32.0" />
-      <ComboBox layoutX="561.0" layoutY="223.0" prefHeight="25.0" prefWidth="105.0" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="256.0" />
+      <DatePicker fx:id="datePicker" onAction="#handleOnFromDate" prefHeight="25.0" prefWidth="105.0" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="32.0" />
+      <ComboBox fx:id="comboBox" layoutX="561.0" layoutY="223.0" prefHeight="25.0" prefWidth="105.0" promptText="Вибір" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="256.0">
+         <items>
+            <FXCollections fx:factory="observableArrayList">
+               <String fx:value="1" />
+               <String fx:value="2" />
+               <String fx:value="3" />
+               <String fx:value="4" />
+            </FXCollections>
+         </items>
+      </ComboBox>
    </children>
 </AnchorPane>

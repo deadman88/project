@@ -1,4 +1,4 @@
-package sample.dialogJobWindow;
+package sample.jobScene.dialogJobWindow;
 
 /**
  * Created by DM-UA on 25.08.2017.

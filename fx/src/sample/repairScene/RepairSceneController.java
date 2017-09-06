@@ -3,12 +3,11 @@ package sample.repairScene;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
@@ -18,14 +17,28 @@ import sample.employeeScene.EmployeeScene;
 import sample.machinScene.MachinScene;
 import sample.repairScene.dialogRepairWindow.Repair;
 import sample.repairScene.dialogRepairWindow.RepairEditDialogController;
+import sample.repairScene.repairDB.RepairDB;
 
 import java.io.IOException;
+import java.time.LocalDate;
+
 
 /**
  * Created by Макс on 29.08.2017.
  */
 public class RepairSceneController {
     private final ObservableList<Repair> repairData = FXCollections.observableArrayList();
+    private ObservableList<String> dayOr = FXCollections.observableArrayList("Вася","Петро","Додік");
+    private LocalDate localDate;
+    private Repair repair;
+    RepairDB repository;
+
+    public Repair getRepair(){return repair;}
+
+    public void setRepair(Repair repair){
+        this.repair = repair;
+        repairTable.setItems(repository.getRepairRepositoryList());
+    }
 
     @FXML
     private TableView<Repair> repairTable;
@@ -35,12 +48,28 @@ public class RepairSceneController {
     private TableColumn<Repair, Integer> costOfRepairColumn;
     @FXML
     private TableColumn<Repair, String> timeOfRepairColumn;
+    @FXML
+    private ComboBox<String> comboBox; //через свічі
+    @FXML
+    private DatePicker   datePicker; //опрацювання івенту
+
+    public RepairSceneController(){repository = new RepairDB();}
+
+    @FXML
+    public void handleOnFromDate() {
+        this.localDate = datePicker.getValue();
+        System.out.println(this.localDate);
+    }
 
     @FXML
     private void handleDeleteRepair() {
         int selectedIndex = repairTable.getSelectionModel().getSelectedIndex();
         if (selectedIndex >= 0) {
             repairTable.getItems().remove(selectedIndex);
+            Repair repair = repairTable.getSelectionModel().getSelectedItem();
+            String nameOfRepair = repair.getNameOfRepair();
+            String timeOfRepair = repair.getTimeOfRepair();
+            repository.remove(nameOfRepair, timeOfRepair);
         } else {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.initOwner(null);
@@ -50,6 +79,8 @@ public class RepairSceneController {
             alert.showAndWait();
         }
     }
+
+
     public boolean showRepairEditDialog(Repair repair) {
         try {
             FXMLLoader loader = new FXMLLoader();
@@ -78,17 +109,22 @@ public class RepairSceneController {
         boolean okClicked = showRepairEditDialog(tempRepair);
         if (okClicked) {
             repairData.add(tempRepair);
+            repository.insertIntoDB(tempRepair);
         }
     }
     @FXML
     private void handleEditRepair() {
-        Repair selectedEmployee = repairTable.getSelectionModel().getSelectedItem();
-        if (selectedEmployee != null) {
-            boolean okClicked = showRepairEditDialog(selectedEmployee);
+        Repair selectedRepair = repairTable.getSelectionModel().getSelectedItem();
+        if (selectedRepair != null) {
+            boolean okClicked = showRepairEditDialog(selectedRepair);
             if (okClicked) {
                 int selectedIndex =
                         repairTable.getSelectionModel().getSelectedIndex();
-                repairData.set(selectedIndex, selectedEmployee);
+                repairData.set(selectedIndex, selectedRepair);
+                repository.updateIntoDB(
+                        selectedRepair.getNameOfRepair(),
+                        selectedRepair.getCostOfRepair(),
+                        selectedRepair.getTimeOfRepair());
             }
         } else {
             Alert alert = new Alert(Alert.AlertType.WARNING);
@@ -130,8 +166,17 @@ public class RepairSceneController {
         }
     }
 
+//    public void dayRepair(ActionEvent event){
+//        if(comboBox.getItems()=dayOr.get(0){
+//        }
+//    }
+
     @FXML
     public void initialize() {
+//        datePicker.setC
+        comboBox.getItems().clear();
+        comboBox.getItems().addAll(dayOr);
+//        comboBox.setOnAction(ActionEvent
         nameOfRepairColumn.setCellValueFactory(new PropertyValueFactory<>("nameOfRepairColumn"));
         costOfRepairColumn.setCellValueFactory(new PropertyValueFactory<>("costOfRepairColumn"));
         timeOfRepairColumn.setCellValueFactory(new PropertyValueFactory<>("timeOfRepair"));

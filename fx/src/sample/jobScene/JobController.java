@@ -1,4 +1,4 @@
-package sample;
+package sample.jobScene;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -11,25 +11,46 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import sample.dialogJobWindow.Job;
-import sample.dialogJobWindow.JobEditDialogController;
+import sample.Main;
+import sample.jobScene.jobDB.JobDB;
+import sample.jobScene.dialogJobWindow.Job;
+import sample.jobScene.dialogJobWindow.JobEditDialogController;
 import sample.employeeScene.EmployeeScene;
 import sample.machinScene.MachinScene;
 import sample.repairScene.RepairScene;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 
 /**
  * Created by Макс on 25.08.2017.
  */
-public class FXMLDocumentController {
+public class JobController {
     private final ObservableList<Job> jobData = FXCollections.observableArrayList();
+    private Main main;
+    private LocalDate localDate;
+    JobDB repository;
 
+    public Main getMain(){return main;}
+
+    public void setMain(Main main) {
+        this.main = main;
+        jobTable.setItems(repository.getJobRepositoryList());
+    }
 
     @FXML
     private TableView<Job> jobTable;
+
+    public TableView<Job> getJobTable() {
+        return jobTable;
+    }
+
+    public void setJobTable(TableView<Job> jobTable) {
+        this.jobTable = jobTable;
+    }
+
     @FXML
     private TableColumn<Job, String> nameOfMachinColumn;
     @FXML
@@ -47,10 +68,27 @@ public class FXMLDocumentController {
     @FXML
     private TableColumn<Job, Boolean> noOrYesPaymentColumn;
     @FXML
+    private DatePicker   datePicker;
+
+
+    public JobController() {
+        repository = new JobDB();
+    }
+
+    @FXML
+    public void handleOnFromDate() {
+        this.localDate = datePicker.getValue();
+        System.out.println(this.localDate);
+    }
+    @FXML
     private void handleDeleteJob() {
         int selectedIndex = jobTable.getSelectionModel().getSelectedIndex();
         if (selectedIndex >= 0) {
             jobTable.getItems().remove(selectedIndex);
+            Job job = jobTable.getSelectionModel().getSelectedItem();
+            String nameOfMachinColumn = job.getNameOfMachin();
+            String nameOfEmployeeColumn = job.getNameOfEmployee();
+            repository.remove(nameOfMachinColumn, nameOfEmployeeColumn);
         } else {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.initOwner(null);
@@ -89,6 +127,7 @@ public class FXMLDocumentController {
         boolean okClicked = showJobEditDialog(tempJob);
         if (okClicked) {
             jobData.add(tempJob);
+            repository.insertIntoDB(tempJob);
         }
     }
     @FXML
@@ -100,6 +139,16 @@ public class FXMLDocumentController {
                 int selectedIndex =
                         jobTable.getSelectionModel().getSelectedIndex();
                 jobData.set(selectedIndex, selectedJob);
+                showJobEditDialog(selectedJob);
+                repository.updateIntoDB(
+                        selectedJob.getNameOfMachin(),
+                        selectedJob.getNameOfEmployee(),
+                        selectedJob.getTime(),
+                        selectedJob.getCost(),
+                        selectedJob.getCostOfCarriage(),
+                        selectedJob.getNameOfJob(),
+                        selectedJob.getPayment(),
+                        selectedJob.isNoOrYesPayment());
             }
         } else {
             Alert alert = new Alert(Alert.AlertType.WARNING);
